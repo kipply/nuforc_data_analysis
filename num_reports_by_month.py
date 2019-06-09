@@ -29,11 +29,7 @@ for line in data:
     months[month] += 1 
   things += 1 
 
-print(months.items())
-sorted_data = [x[1] for x in months.items()]
-print(sorted_data)
-for i in range(12): 
-  sorted_data[i] /= 18.0
+sorted_data = sorted(months.items())
 
 layout = go.Layout(
   xaxis=dict(title='Month'),
@@ -42,14 +38,15 @@ layout = go.Layout(
 )
 
 
-data = [go.Box(
-        x=np.array(sorted_data),
+data = [go.Bar(
+        y=np.array([x[1] for x in sorted_data]),
+        x=np.array([x[0] for x in sorted_data]),
        )]
 layout = go.Layout(
   title = 'Average Number of UFO Sightings from 2000 to 2018'
 )
 
-plotly.offline.plot({'data': data, 'layout': layout}, filename='reports-by-month-box.html')
+plotly.offline.plot({'data': data, 'layout': layout}, filename='reports-by-month.html')
 print(np.std(np.array(sorted_data)))
 zscores = (list(abs(x) for x in stats.zscore(np.array(sorted_data))))
 print(sum(zscores) / 12)
