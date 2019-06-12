@@ -1,7 +1,7 @@
 import plotly
 import plotly.plotly as py
 import plotly.graph_objs as go
-
+import pyperclip
 import numpy as np
 from scipy import stats
 import random
@@ -29,7 +29,10 @@ for line in data:
     months[month] += 1 
   things += 1 
 
-sorted_data = sorted(months.items())
+sorted_data = []
+
+for month in month_names: 
+  sorted_data.append([month, months[month]])
 
 layout = go.Layout(
   xaxis=dict(title='Month'),
@@ -42,9 +45,9 @@ data = [go.Bar(
         y=np.array([x[1] for x in sorted_data]),
         x=np.array([x[0] for x in sorted_data]),
        )]
-layout = go.Layout(
-  title = 'Average Number of UFO Sightings from 2000 to 2018'
-)
+# layout = go.Layout(
+#   title = 'Average Number of UFO Sightings from 2000 to 2018'
+# )
 
 plotly.offline.plot({'data': data, 'layout': layout}, filename='reports-by-month.html')
 print(np.std(np.array(sorted_data)))

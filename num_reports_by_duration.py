@@ -58,4 +58,4 @@ data = [go.Box(
 plotly.offline.plot({'data': data, 'layout': layout}, filename='reports-by-duration-box.html')
 
 print(np.std(np.array(durations)))
-print(np.mean(stats.zscore(np.array(durations))))
+print(np.mean((np.array(durations))))
